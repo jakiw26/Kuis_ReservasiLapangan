@@ -1,4 +1,6 @@
-export const fields = [
+import type { Field } from '../fields/interfaces/field.interface.js';
+
+export const fields: Field[] = [
   {
     id: 1,
     sportId: 1,

@@ -21,94 +21,257 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Sistem Reservasi Lapangan Olahraga
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+REST API untuk mengelola reservasi lapangan olahraga yang dibangun menggunakan **NestJS**. Aplikasi ini memungkinkan pengguna melihat daftar lapangan, memeriksa ketersediaan jadwal, melakukan pemesanan, melihat data reservasi, dan membatalkan pemesanan.
 
-## Project setup
+## Teknologi
+
+- **Framework:** NestJS
+- **Bahasa Pemrograman:** TypeScript
+- **Runtime:** Node.js
+- **API Testing:** Postman
+- **Penyimpanan Data:** In-memory Array
+
+## Fitur Utama
+
+1. Menampilkan daftar dan detail lapangan olahraga.
+2. Menampilkan data pelanggan dan jenis olahraga.
+3. Membuat reservasi lapangan.
+4. Memeriksa ketersediaan jadwal berdasarkan tanggal.
+5. Mencegah pemesanan pada jadwal yang bertabrakan.
+6. Menampilkan detail dan riwayat reservasi pelanggan.
+7. Membatalkan reservasi.
+8. Mengembalikan slot waktu yang telah dibatalkan agar dapat dipesan kembali.
+
+## Struktur Data
+
+Aplikasi menggunakan lima kelompok data utama:
+
+| Data | Keterangan |
+|---|---|
+| Customers | Menyimpan informasi pelanggan |
+| Sports | Menyimpan jenis olahraga |
+| Fields | Menyimpan informasi lapangan |
+| Booking Statuses | Menyimpan status reservasi |
+| Bookings | Menyimpan informasi pemesanan |
+
+Status reservasi:
+- `BOOKED` – Pemesanan aktif.
+- `CANCELLED` – Pemesanan dibatalkan.
+- `COMPLETED` – Pemesanan selesai.
+
+Status lapangan:
+- `AVAILABLE` – Lapangan dapat dipesan.
+- `MAINTENANCE` – Lapangan sedang dalam perawatan.
+
+## Instalasi dan Menjalankan Project
+
+### 1. Clone Repository
 
 ```bash
-$ npm install
+git clone <repository-url>
 ```
 
-## Compile and run the project
+### 2. Masuk ke Folder Project
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cd reservasi-lapangan
 ```
 
-## Run tests
+### 3. Install Dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 4. Jalankan Aplikasi
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+Aplikasi berjalan pada alamat:
 
-## Observability
+```text
+http://localhost:3000
+```
 
-In production applications, observability is essential for understanding how your system behaves, detecting issues early, and maintaining reliable performance.
+## Daftar Endpoint API
 
-[NestJS Observe](https://observe.nestjs.com) automatically instruments your NestJS application, giving you deep visibility into your system with minimal setup:
+Base URL: `http://localhost:3000`
 
-- **Distributed tracing:** Follow requests across services and understand how they flow through your system.
-- **Waterfall analysis:** Visualize request execution and identify slow operations, bottlenecks, and unexpected delays.
-- **Performance analysis:** Analyze application performance in real time and quickly pinpoint areas that need optimization.
-- **Metrics:** Track key application and infrastructure metrics to understand system health and performance trends.
-- **Logging:** Centralize and correlate logs with traces and other telemetry to make debugging easier.
-- **Error tracking:** Detect errors quickly and investigate their root causes with the surrounding context.
-- **SLA monitoring:** Track service-level objectives and identify when your application is approaching or exceeding defined thresholds.
-- **Alarms and alerts:** Set up alerts for critical errors, performance degradation, SLA violations, and other anomalies so your team can react quickly.
+### 1. Lapangan (Fields)
 
-## Resources
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| GET | `/fields` | Menampilkan seluruh lapangan |
+| GET | `/fields/:id` | Menampilkan detail lapangan |
+| GET | `/fields/:id/availability?date=YYYY-MM-DD` | Memeriksa ketersediaan jadwal lapangan |
 
-Check out a few resources that may come in handy when working with NestJS:
+### 2. Reservasi (Bookings)
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Auto-instrument your application with [NestJS Observer](https://observer.nestjs.com). Distributed tracing, metrics, and logging made easy. Error tracking and performance monitoring for your NestJS applications.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+| Method | Endpoint | Keterangan |
+|---|---|---|
+| POST | `/bookings` | Membuat reservasi baru |
+| GET | `/bookings` | Menampilkan seluruh reservasi |
+| GET | `/bookings/:id` | Menampilkan detail reservasi |
+| GET | `/users/:userId/bookings` | Menampilkan reservasi berdasarkan pelanggan |
+| PATCH | `/bookings/:id/cancel` | Membatalkan reservasi |
 
-## Support
+## Contoh Request dan Response
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 1. Membuat Reservasi
 
-## Stay in touch
+**Method:** `POST`
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+**Endpoint:**
 
-## License
+```text
+http://localhost:3000/bookings
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Request Body:**
+
+```json
+{
+  "fieldId": 2,
+  "date": "2026-11-05",
+  "startTime": "18:00",
+  "endTime": "19:00",
+  "customerName": "Budi"
+}
+```
+
+**Contoh Response Berhasil:**
+
+```json
+{
+  "id": 1,
+  "customerId": 1,
+  "customerName": "Budi",
+  "fieldId": 2,
+  "bookingStatusId": 1,
+  "date": "2026-11-05",
+  "startTime": "18:00",
+  "endTime": "19:00",
+  "totalPrice": 100000
+}
+```
+
+*Nilai harga merupakan ilustrasi dan mengikuti harga lapangan pada data aplikasi.*
+
+### 2. Melihat Seluruh Reservasi
+
+**Method:** `GET`
+
+**Endpoint:**
+
+```text
+http://localhost:3000/bookings
+```
+
+### 3. Melihat Detail Reservasi
+
+**Method:** `GET`
+
+**Endpoint:**
+
+```text
+http://localhost:3000/bookings/1
+```
+
+### 4. Melihat Reservasi Pelanggan
+
+**Method:** `GET`
+
+**Endpoint:**
+
+```text
+http://localhost:3000/users/1/bookings
+```
+
+### 5. Memeriksa Ketersediaan Lapangan
+
+**Method:** `GET`
+
+**Endpoint:**
+
+```text
+http://localhost:3000/fields/2/availability?date=2026-11-05
+```
+
+**Contoh Response:**
+
+```json
+{
+  "fieldId": 2,
+  "fieldName": "Lapangan Badminton 1",
+  "date": "2026-11-05",
+  "status": "AVAILABLE",
+  "bookedSlots": [
+    {
+      "startTime": "18:00",
+      "endTime": "19:00"
+    }
+  ]
+}
+```
+
+### 6. Membatalkan Reservasi
+
+**Method:** `PATCH`
+
+**Endpoint:**
+
+```text
+http://localhost:3000/bookings/1/cancel
+```
+
+Reservasi yang berhasil dibatalkan akan memiliki status `CANCELLED` sehingga jadwalnya tidak lagi dianggap sebagai slot yang terpakai.
+
+## Pengujian API Menggunakan Postman
+
+Pengujian dilakukan untuk memastikan setiap endpoint dan proses reservasi berjalan sesuai kebutuhan sistem.
+
+| No. | Skenario Pengujian | Hasil yang Diharapkan |
+|---|---|---|
+| 1 | Menampilkan daftar lapangan | Data lapangan ditampilkan |
+| 2 | Melihat detail lapangan | Detail lapangan ditampilkan |
+| 3 | Mencari lapangan yang tidak ditemukan | HTTP 404 |
+| 4 | Membuat reservasi baru | HTTP 201 |
+| 5 | Membuat reservasi pada jadwal bentrok | HTTP 400 |
+| 6 | Memesan lapangan yang tidak ditemukan | HTTP 404 |
+| 7 | Memesan menggunakan pelanggan yang tidak ditemukan | HTTP 404 |
+| 8 | Menampilkan seluruh reservasi | Data reservasi ditampilkan |
+| 9 | Melihat detail reservasi | Detail reservasi ditampilkan |
+| 10 | Mencari reservasi yang tidak ditemukan | HTTP 404 |
+| 11 | Melihat reservasi berdasarkan pelanggan | Data reservasi pelanggan ditampilkan |
+| 12 | Memeriksa ketersediaan lapangan | Jadwal pemesanan ditampilkan |
+| 13 | Membatalkan reservasi | Status berubah menjadi CANCELLED |
+| 14 | Memeriksa jadwal setelah pembatalan | Slot kembali tersedia |
+| 15 | Memesan kembali slot yang dibatalkan | Reservasi berhasil |
+| 16 | Membatalkan reservasi yang sudah dibatalkan | HTTP 400 |
+
+## Penanganan Error
+
+Aplikasi menggunakan HTTP Exception dari NestJS untuk menangani kondisi kesalahan.
+
+| HTTP Status | Keterangan |
+|---|---|
+| 200 | Request berhasil |
+| 201 | Reservasi berhasil dibuat |
+| 400 | Request tidak valid atau jadwal bentrok |
+| 404 | Data lapangan, pelanggan, atau reservasi tidak ditemukan |
+
+## Batasan Aplikasi
+
+- Data disimpan sementara menggunakan array.
+- Tidak menggunakan database.
+- Tidak menggunakan DTO dan `class-validator`.
+- Data akan kembali ke kondisi awal ketika server dimulai ulang.
+- Autentikasi dan frontend tidak termasuk dalam cakupan project.
+
+## Pengembang
+
+Project ini dibuat sebagai bagian dari Kuis Proyek Individu mata kuliah **Praktek Pemrograman Web 3** dengan menggunakan framework NestJS.

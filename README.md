@@ -139,7 +139,7 @@ http://localhost:3000/bookings
   "date": "2026-11-05",
   "startTime": "18:00",
   "endTime": "19:00",
-  "customerName": "Budi"
+  "customerName": "Jakiwchen"
 }
 ```
 

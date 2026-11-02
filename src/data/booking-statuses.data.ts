@@ -1,4 +1,6 @@
-export const bookingStatuses = [
+import type { BookingStatus } from '../booking-statuses/interfaces/booking-status.interface.js';
+
+export const bookingStatuses: BookingStatus[] = [
   {
     id: 1,
     name: 'BOOKED',

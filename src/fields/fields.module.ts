@@ -4,6 +4,6 @@ import { FieldsService } from './fields.service.js';
 
 @Module({
   controllers: [FieldsController],
-  providers: [FieldsService]
+  providers: [FieldsService],
 })
 export class FieldsModule {}

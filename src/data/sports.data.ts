@@ -1,4 +1,6 @@
-export const sports = [
+import type { Sport } from '../sports/interfaces/sport.interface.js';
+
+export const sports: Sport[] = [
   {
     id: 1,
     name: 'Futsal',
